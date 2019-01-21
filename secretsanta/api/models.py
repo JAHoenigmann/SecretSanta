@@ -6,5 +6,6 @@ class GiftRecipient(models.Model):
     last_name = models.CharField(max_length=50)
     email = models.EmailField()
     street_address = models.TextField()
-    city = models.CharField(max_length=2)
+    city = models.CharField(max_length=100)
+    state = models.CharField(max_length=2)
     zip_code = models.CharField(max_length=5)

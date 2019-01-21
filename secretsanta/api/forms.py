@@ -5,4 +5,4 @@ class GiftRecipientForm(ModelForm):
     class Meta:
         model = GiftRecipient
         fields = ['first_name', 'last_name', 'email', 'street_address', 'city',
-                  'zip_code']
+                  'state', 'zip_code']

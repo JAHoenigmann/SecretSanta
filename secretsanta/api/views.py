@@ -4,6 +4,11 @@ from .forms import GiftRecipientForm
 # Create your views here.
 def GiftRecipientEntry(request):
     if request.method == 'GET':
-        return render(request, 'api/gift_recipient_entry.html')
+        form = GiftRecipientForm()
+        return render(request, 'api/gift_recipient_entry.html', {'form' : form})
+
     if request.method == 'POST':
-        return render(request, 'api/gift_recipient_entry.html')
+        form = GiftRecipientForm(request.POST)
+
+        if form.is_valid():
+            return render(request, 'api/gift_recipient_entered.html')
