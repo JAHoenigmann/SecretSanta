@@ -10,3 +10,6 @@ class GiftRecipient(models.Model):
     city = models.CharField(max_length=100)
     state = models.CharField(max_length=2)
     zip_code = models.CharField(max_length=5)
+
+    def __str__(self):
+        return f"{self.first_name} {self.last_name}"
