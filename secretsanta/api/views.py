@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.core import serializers
 from .forms import GiftRecipientForm
 
 # Create your views here.
@@ -11,4 +12,6 @@ def GiftRecipientEntry(request):
         form = GiftRecipientForm(request.POST)
 
         if form.is_valid():
+            
             return render(request, 'api/gift_recipient_entered.html')
+        return render(request, 'api/gift_recipient_entered.html')
