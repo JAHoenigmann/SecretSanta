@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from .forms import GiftRecipientForm
 from .models import GiftRecipient
 from .helpers import email_string
+from .serializers import GiftRecipientSerializer
 
 # Create your views here.
 def GiftRecipientEntry(request):
@@ -45,14 +46,16 @@ def RunSecretSantaOperation(request):
     runButton = request.POST.get('Run Secret Santa Operation')
     if runButton is not None:
         if runButton:
-            temp = {}
-            temp['first_name'] = 'Alec'
-            temp['last_name'] = 'Hoenigmann'
-            temp['street_address'] = '2415 Blairlogie Court'
-            temp['city'] = 'Henderson'
-            temp['state'] = 'NV'
-            temp['zip_code'] = '89044'
-            email_message = email_string(recipient=temp, gift_recipient=temp)
+            data = GiftRecipientSerializer(GiftRecipient.objects.all(), many=True)
+            print(data.data)
+            # temp = {}
+            # temp['first_name'] = 'Alec'
+            # temp['last_name'] = 'Hoenigmann'
+            # temp['street_address'] = '2415 Blairlogie Court'
+            # temp['city'] = 'Henderson'
+            # temp['state'] = 'NV'
+            # temp['zip_code'] = '89044'
+            # email_message = email_string(recipient=temp, gift_recipient=temp)
             # with mail.get_connection() as connection:
             #     mail.EmailMessage(
             #         "Here's Your Secret Santa Gift Recipient!", email_message.operation_message(), 'hoenigmannmolina.secretsanta@gmail.com', ['JAHoenigmann@student.fullsail.edu'],
