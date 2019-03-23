@@ -5,15 +5,12 @@ class email_string():
     ['first_name', 'last_name', 'email', 'street_address', 'city', 'state', 'zip_code']
     """
 
-    def __init__(self, recipient, gift_recipient=None):
-        self.recipient = recipient
+    def __init__(self, giver, gift_recipient=None):
+        self.giver = giver
         self.gift_recipient = gift_recipient
 
-    def initialize(self, recipient):
-        self.recipient = recipient
-
     def entry_message(self):
-        ret_str = f"Hello {self.recipient['first_name']} {self.recipient['last_name']},\n\n"
+        ret_str = f"Hello {self.giver['first_name']} {self.giver['last_name']},\n\n"
         ret_str += 'Your information has been saved in the Hoenigmann-Molina Secret Santa database!\n\n'
         ret_str += 'When the time comes, you will receive an email from this account with your Secret Santa recipient, along with their address!\n\n'
         ret_str += 'At the same time, someone else will be sent your address, so that they know where to send your awesome gift!\n\n'
@@ -26,7 +23,7 @@ class email_string():
         if self.gift_recipient is None:
             self.gift_recipient = gift_recipient
 
-        ret_str = f"Hello {self.recipient['first_name']} {self.recipient['last_name']},\n\n"
+        ret_str = f"Hello {self.giver['first_name']} {self.giver['last_name']},\n\n"
         ret_str += 'That time has finally arrived!\n\n'
         ret_str += "It's Christmas Time, and it's time to play Secret Santa!\n\n"
         ret_str += 'Your recipient is:\n\n'
