@@ -28,7 +28,16 @@ def GiftRecipientEntry(request):
                         form = GiftRecipientForm()
                         return render(request, 'api/gift_recipient_duplicate.html', {'form' : form})
                     except GiftRecipient.DoesNotExist:
-                        form.save()
+                        new_recipient = GiftRecipient(
+                            first_name=cleaned_form['first_name'].lower().strip(),
+                            last_name=cleaned_form['last_name'].lower().strip(),
+                            email=cleaned_form['email'].strip(),
+                            street_address=cleaned_form['street_address'].lower().strip(),
+                            city=cleaned_form['city'].lower().strip(),
+                            state=cleaned_form['state'].upper().strip(),
+                            zip_code=cleaned_form['zip_code'].strip()
+                        )
+                        new_recipient.save()
                         email_message = email_string(giver=cleaned_form)
                         with mail.get_connection() as connection:
                             mail.EmailMessage(
@@ -54,9 +63,9 @@ def RunSecretSantaOperation(request):
             fail_counter = 0
             FAIL_LIMIT = 1000
             dict = {}
+            givers = copy.deepcopy(recipients_data)
 
             while fail_counter < (FAIL_LIMIT + 1):
-                givers = copy.deepcopy(recipients_data)
                 recipients = copy.deepcopy(recipients_data)
                 failsafe_triggered = False
 
@@ -67,7 +76,6 @@ def RunSecretSantaOperation(request):
                         if recipient is not giver:
                             if counter >= 50:
                                 if fail_counter >= FAIL_LIMIT:
-                                    dict[giver['first_name'] + ' ' + giver['last_name']] = recipient['first_name'] + ' ' + recipient['last_name']
                                     recipients.remove(recipient)
                                     # with mail.get_connection() as connection:
                                     #     email_message = email_string(giver=giver, gift_recipient=recipient)
@@ -79,11 +87,11 @@ def RunSecretSantaOperation(request):
                                 failsafe_triggered = True
                                 break
 
-                            recipient_addr = recipient['street_address'].strip() + ', ' + recipient['city'].strip() + ', ' + recipient['state'].strip() + ' ' + recipient['zip_code'].strip()
-                            giver_addr = giver['street_address'].strip() + ', ' + giver['city'].strip() + ', ' + giver['state'].strip() + ' ' + giver['zip_code'].strip()
-                            if recipient_addr.lower() != giver_addr.lower():
+                            recipient_addr = recipient['street_address'] + ', ' + recipient['city'] + ', ' + recipient['state'] + ' ' + recipient['zip_code']
+                            giver_addr = giver['street_address'] + ', ' + giver['city'] + ', ' + giver['state'] + ' ' + giver['zip_code']
+
+                            if recipient_addr != giver_addr:
                                 recipients.remove(recipient)
-                                dict[giver['first_name'] + ' ' + giver['last_name']] = recipient['first_name'] + ' ' + recipient['last_name']
                                 # with mail.get_connection() as connection:
                                 #     email_message = email_string(giver=giver, gift_recipient=recipient)
                                 #     mail.EmailMessage(
@@ -95,28 +103,14 @@ def RunSecretSantaOperation(request):
 
                     if failsafe_triggered is True:
                         fail_counter += 1
-                        print('*******\nFAILSAFE TRIGGERED | Fail Count = ' + str(fail_counter) + '\n*******')
                         break
 
                 if failsafe_triggered == False:
-                    print('clean run!')
                     break
 
-            print('test finished')
-            for key in dict.keys():
-                print(key + ': ' + dict[key])
-
-            # temp = {}
-            # temp['first_name'] = 'Alec'
-            # temp['last_name'] = 'Hoenigmann'
-            # temp['street_address'] = '2415 Blairlogie Court'
-            # temp['city'] = 'Henderson'
-            # temp['state'] = 'NV'
-            # temp['zip_code'] = '89044'
-            # email_message = email_string(recipient=temp, gift_recipient=temp)
             # with mail.get_connection() as connection:
             #     mail.EmailMessage(
-            #         "Here's Your Secret Santa Gift Recipient!", email_message.operation_message(), 'hoenigmannmolina.secretsanta@gmail.com', ['JAHoenigmann@student.fullsail.edu'],
+            #         'All Secret Santa Emails have been Sent', f'There were {fail_counter} failed attempts with a fail limit of: {FAIL_LIMIT}.', 'hoenigmannmolina.secretsanta@gmail.com', ['JAHoenigmann@student.fullsail.edu'],
             #         connection=connection,
             #     ).send()
 
