@@ -54,10 +54,10 @@ def RunSecretSantaOperation(request):
             temp['state'] = 'NV'
             temp['zip_code'] = '89044'
             email_message = email_string(recipient=temp, gift_recipient=temp)
-            with mail.get_connection() as connection:
-                mail.EmailMessage(
-                    "Here's Your Secret Santa Gift Recipient!", email_message.operation_message(), 'hoenigmannmolina.secretsanta@gmail.com', ['JAHoenigmann@student.fullsail.edu'],
-                    connection=connection,
-                ).send()
+            # with mail.get_connection() as connection:
+            #     mail.EmailMessage(
+            #         "Here's Your Secret Santa Gift Recipient!", email_message.operation_message(), 'hoenigmannmolina.secretsanta@gmail.com', ['JAHoenigmann@student.fullsail.edu'],
+            #         connection=connection,
+            #     ).send()
 
     return render(request, 'api/run_secret_santa_operation.html')
