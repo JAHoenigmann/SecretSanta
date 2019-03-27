@@ -9,14 +9,24 @@
       .asteriskField {
         display: none;
       }
+      .image {
+        width: 100%;
+        height: auto;
+      }
     </style>
   </head>
-  <body style="background-color:#FF1F1F;">
+  <body style="background-color:#FF3333;">
     <div class="container" style="background-color:#FFFFFF;">
       <div class="row justify-content-center" style="background-color:#FF3333;">
-        <div class="col-8" style="background-color:#FFFFFF;">
+        <div class="row col-8 justify-content-center">
           {% load static %}
-          <h2 class="mt-2" align="center" style="font-size:2.25em"><img src="{% static "api/Santas-Sleigh.png" %}" alt="Santas Sleigh" width="50" height="50">Hoenigmann Molina Secret Santa!</h2>
+          <img src="{% static "api/SantaClaus.png" %}" alt="Santas Claus" width="50" height="50">
+          <img src="{% static "api/Santas-Sleigh.png" %}" alt="Santas Sleigh" width="50" height="50">
+          <img src="{% static "api/ChristmasPresent.png" %}" alt="ChristmasPresent" width="30" height="30" style="float: left; margin: 20px 10px 0px 10px;">
+          <img src="{% static "api/ChristmasPresent.png" %}" alt="ChristmasPresent" width="30" height="30" style="float: left; margin: 20px 0px 0px 0px;">
+        </div>
+        <div class="col-8" style="background-color:#FFFFFF;">
+          <h2 class="mt-2" align="center" style="font-size:2.25em">Hoenigmann Molina Secret Santa!</h2>
           <hr class="mt-0">
 
           {% block message %}
