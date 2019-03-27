@@ -1,16 +1,15 @@
-<!-- <h2>If you have not already entered your information, please enter it below:</h2> -->
 {% extends "api/base.html" %}
 
 {% load crispy_forms_tags %}
 
 {% block message %}
-<h3 align="center">If you have not already entered your information, please enter it below:</h3>
+<h2 align="center" style="font-size:1.5em">If you have not already entered your information, please enter it below:</h2>
 {% endblock %}
 
 {% block content %}
   <form method="post">
     {% csrf_token %}
-    <div class="row my-1">
+    <div class="row mx-0 my-1">
       <div class="col-lg-6 pt-3">
         {{ form.first_name|as_crispy_field }}
       </div>
@@ -18,13 +17,13 @@
         {{ form.last_name|as_crispy_field }}
       </div>
     </div>
-    <div class="row my-1">
+    <div class="row mx-0 my-1">
       <div class="col-lg-6 pt-3">
         {{ form.email|as_crispy_field }}
       </div>
     </div>
 
-    <div class="row my-1">
+    <div class="row mx-0 my-1">
       <div class="col-lg-6 pt-3">
       {{ form.street_address|as_crispy_field }}
       </div>
@@ -33,7 +32,7 @@
       </div>
     </div>
 
-    <div class="row my-1">
+    <div class="row mx-0 my-1">
       <div class="col-lg-6 pt-3">
       {{ form.state|as_crispy_field }}
       </div>
@@ -42,8 +41,8 @@
       </div>
     </div>
 
-    <div class="row mx-0 my-1 pt-3">
-      <button type="submit" class="btn btn-success row mx-0 my-1">Submit</button>
+    <div class="row justify-content-center my-1 py-3">
+        <button type="submit" class="btn btn-success row mx-0 my-1">Submit</button>
     </div>
   </form>
 {% endblock %}
