@@ -24,7 +24,7 @@ def GiftRecipientEntry(request):
                 cleaned_form = form.cleaned_data
                 if cleaned_form is not None:
                     try:
-                        new_recipient = GiftRecipient.objects.get(first_name=cleaned_form['first_name'], last_name=cleaned_form['last_name'])
+                        new_recipient = GiftRecipient.objects.get(first_name=cleaned_form['first_name'].lower().strip(), last_name=cleaned_form['last_name'].lower().strip())
                         form = GiftRecipientForm()
                         return render(request, 'api/gift_recipient_duplicate.html', {'form' : form})
                     except GiftRecipient.DoesNotExist:
