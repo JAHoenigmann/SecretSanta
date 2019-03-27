@@ -39,11 +39,11 @@ def GiftRecipientEntry(request):
                         )
                         new_recipient.save()
                         email_message = email_string(giver=cleaned_form)
-                        with mail.get_connection() as connection:
-                            mail.EmailMessage(
-                                'Your Secret Santa Information has been Saved!', email_message.entry_message(), 'hoenigmannmolina.secretsanta@gmail.com', [cleaned_form['email']],
-                                connection=connection,
-                            ).send()
+                        # with mail.get_connection() as connection:
+                        #     mail.EmailMessage(
+                        #         'Your Secret Santa Information has been Saved!', email_message.entry_message(), 'hoenigmannmolina.secretsanta@gmail.com', [cleaned_form['email']],
+                        #         connection=connection,
+                        #     ).send()
                 form = GiftRecipientForm()
                 return render(request, 'api/gift_recipient_entered.html', {'form' : form})
             else:

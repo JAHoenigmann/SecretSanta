@@ -1,7 +1,70 @@
-<h2>If you have not already entered your information, please enter it below:</h2>
+<!-- <h2>If you have not already entered your information, please enter it below:</h2> -->
+{% extends "api/base.html" %}
 
-<form method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <input type="submit" value="Submit">
-</form>
+{% load crispy_forms_tags %}
+
+{% block test %}
+<h3 align="center">If you have not already entered your information, please enter it below:</h3>
+{% endblock %}
+
+{% block content %}
+  <form method="post">
+    {% csrf_token %}
+    <div class="row my-1">
+      <div class="col-lg-4 pt-3">
+        {{ form.first_name|as_crispy_field }}
+      </div>
+      <div class="col-lg-4 pt-3">
+        {{ form.last_name|as_crispy_field }}
+      </div>
+    </div>
+    <div class="row my-1">
+      <div class="col-lg-4 pt-3">
+        {{ form.email|as_crispy_field }}
+      </div>
+    </div>
+
+    <div class="row my-1">
+      <div class="col-lg-4 pt-3">
+      {{ form.street_address|as_crispy_field }}
+      </div>
+      <div class="col-lg-4 pt-3">
+      {{ form.city|as_crispy_field }}
+      </div>
+    </div>
+
+    <div class="row my-1">
+      <div class="col-lg-4 pt-3">
+      {{ form.state|as_crispy_field }}
+      </div>
+      <div class="col-lg-4 pt-3">
+      {{ form.zip_code|as_crispy_field }}
+      </div>
+    </div>
+    <!-- <div class="row mx-0 my-1">
+      <div class="col-lg-6">
+      {{ form.street_address|as_crispy_field }}
+      </div>
+    </div>
+    <div class="row mx-0 my-1">
+      <div class="col-lg-6">
+      {{ form.city|as_crispy_field }}
+      </div>
+    </div>
+    <div class="row mx-0 my-1">
+      <div class="col-lg-6">
+      {{ form.state|as_crispy_field }}
+      </div>
+    </div>
+    <div class="row mx-0 my-1">
+      <div class="col-lg-6">
+      {{ form.zip_code|as_crispy_field }}
+      </div>
+    </div> -->
+    <div class="row mx-0 my-1 pt-3">
+      <div class="col-lg-6">
+        <button type="submit" class="btn btn-success row mx-0 my-1">Submit</button>
+      </div>
+    </div>
+  </form>
+{% endblock %}
