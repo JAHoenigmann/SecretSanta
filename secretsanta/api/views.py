@@ -25,6 +25,14 @@ def GiftRecipientEntry(request):
                 if cleaned_form is not None:
                     try:
                         new_recipient = GiftRecipient.objects.get(first_name=cleaned_form['first_name'].lower().strip(), last_name=cleaned_form['last_name'].lower().strip())
+                        new_recipient.email = cleaned_form['email'].strip()
+                        new_recipient.street_address = cleaned_form['street_address'].lower().strip()
+                        new_recipient.city = cleaned_form['city'].lower().strip()
+                        new_recipient.state = cleaned_form['state'].upper().strip()
+                        new_recipient.zip_code = cleaned_form['zip_code'].strip()
+                        new_recipient.gift_suggestion = cleaned_form['gift_suggestion'].strip()
+                        new_recipient.save()
+
                         form = GiftRecipientForm()
                         return render(request, 'api/gift_recipient_duplicate.html', {'form' : form})
                     except GiftRecipient.DoesNotExist:
@@ -35,7 +43,8 @@ def GiftRecipientEntry(request):
                             street_address=cleaned_form['street_address'].lower().strip(),
                             city=cleaned_form['city'].lower().strip(),
                             state=cleaned_form['state'].upper().strip(),
-                            zip_code=cleaned_form['zip_code'].strip()
+                            zip_code=cleaned_form['zip_code'].strip(),
+                            gift_suggestion=cleaned_form['gift_suggestion'].strip()
                         )
                         new_recipient.save()
                         email_message = email_string(giver=cleaned_form)
@@ -48,7 +57,7 @@ def GiftRecipientEntry(request):
                 return render(request, 'api/gift_recipient_entered.html', {'form' : form})
             else:
                 form = GiftRecipientForm()
-                return render(request, 'api/gift_recipient_entry.html', {'form' : form})
+                return render(request, 'api/gift_recipient_error.html', {'form' : form})
         else:
             form = GiftRecipientForm()
             return render(request, 'api/gift_recipient_entry.html', {'form' : form})

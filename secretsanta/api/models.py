@@ -9,6 +9,7 @@ class GiftRecipient(models.Model):
     city = models.CharField(max_length=255)
     state = models.CharField(max_length=2)
     zip_code = models.CharField(max_length=5)
+    gift_suggestion = models.TextField(blank=True)
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"

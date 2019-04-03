@@ -3,7 +3,8 @@
 {% load crispy_forms_tags %}
 
 {% block message %}
-<h2 align="center" style="font-size:1.5em">If you have not already entered your information, please enter it below:</h2>
+<h2 align="center" style="font-size:1.5em">Please fill out the form below:</h2>
+<h2 align="center" style="font-size:1.1em">If you have filled out the form already, filling it out again will update the information saved in the database.</h2>
 {% endblock %}
 
 {% block content %}
@@ -38,6 +39,12 @@
       </div>
       <div class="col-lg-6 pt-3">
       {{ form.zip_code|as_crispy_field }}
+      </div>
+    </div>
+
+    <div class="row mx-0 my-1">
+      <div class="col-lg-6 pt-3">
+      {{ form.gift_suggestion|as_crispy_field }}
       </div>
     </div>
 
